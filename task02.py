@@ -43,14 +43,16 @@ def SumPolynoms(poly1, poly2):                  # складываем слов�
             
 
 def DictionaryToPolynom(dic_polinom):           # словарь в полином
-    sum_poly = ''
+    sum_poly = ' '
     for el in dic_polinom:
         if el != 0:
-            sum_poly += str(dic_polinom[el]) + '*x^' + str(el) + ' + '
+            sum_poly += ' + ' + str(dic_polinom[el]) + '*x^' + str(el)
         elif el == 1:
-            sum_poly += str(dic_polinom[el]) + '*x' + str(el) + ' + '
+            sum_poly += ' + ' + str(dic_polinom[el]) + '*x' + str(el)
         elif el == 0:
-            sum_poly += str(dic_polinom[el]) + ' = 0'
+            sum_poly += ' + ' + str(dic_polinom[el])
+        
+    sum_poly = sum_poly + ' = 0'
     return sum_poly
 
 def FilePolynomsNew(poly):                  # запись суммарного полинома в файл
@@ -69,7 +71,7 @@ polynom2_dictionary = PolynomToDictionary(polynom2)
 
 sorted_summ_polynom = dict(sorted(SumPolynoms(polynom1_dictionary, polynom2_dictionary).items(), reverse = True))
 
-final_polynom = DictionaryToPolynom(sorted_summ_polynom).replace('+ -', '- ').replace('^1 ', ' ')
+final_polynom = DictionaryToPolynom(sorted_summ_polynom).replace('+ -', '- ').replace('^1 ', ' ').replace('  + ', '')
 
 FilePolynomsNew(final_polynom)
 print(f'Сумма двух многочленов (также записана в новый файл): {final_polynom}')
